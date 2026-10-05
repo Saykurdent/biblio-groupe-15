@@ -111,6 +111,15 @@ def borrow_book(book_id, member_id):
         print("Erreur : livre %d introuvable." % book_id)
         return False
     cur.execute(
+        "SELECT member_id FROM loans WHERE book_id = ? AND return_date IS NULL",
+        (book_id,),
+    )
+    pret = cur.fetchone()
+    if pret is not None:
+        conn.close()
+        print("Erreur : livre %d deja emprunte (membre %d)." % (book_id, pret[0]))
+        return False
+    cur.execute(
         "INSERT INTO loans (book_id, member_id, loan_date) VALUES (?, ?, ?)",
         (book_id, member_id, date.today().isoformat()),
     )
@@ -118,7 +127,6 @@ def borrow_book(book_id, member_id):
     conn.close()
     print("Emprunt enregistre : livre %d, membre %d." % (book_id, member_id))
     return True
-
 
 def return_book(book_id):
     conn = get_connection()

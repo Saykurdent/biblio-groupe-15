@@ -2,7 +2,7 @@
 
 - Statut : proposé
 - Date : 2026-10-06
-- Décideurs : @Saykurdent alias Maxime kun
+- Décideurs : toutes l'équipe
 
 ## Contexte
 

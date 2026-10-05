@@ -148,7 +148,7 @@ def return_book(book_id):
 def late():
     c = get_connection()
     x = c.cursor()
-    x.execute("SELECT * FROM loans")
+    x.execute("SELECT * FROM loans WHERE return_date IS NULL")
     r = []
     for l in x.fetchall():
         d = datetime.strptime(l[3], "%Y-%m-%d").date()

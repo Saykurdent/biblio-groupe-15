@@ -109,6 +109,12 @@ def borrow_book(book_id, member_id):
         conn.close()
         print("Erreur : livre %d introuvable." % book_id)
         return False
+    cur.execute("SELECT id FROM members WHERE id = ?", (member_id,))
+    if cur.fetchone() is None:
+        conn.close()
+        print("Erreur : membre %d introuvable." % member_id)
+        return False
+
     cur.execute(
         "SELECT member_id FROM loans WHERE book_id = ? AND return_date IS NULL",
         (book_id,),

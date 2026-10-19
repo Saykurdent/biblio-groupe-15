@@ -145,7 +145,7 @@ def return_book(book_id):
     print("Retour enregistre pour le livre %d." % book_id)
 
 
-def late():
+def compute_late():
     c = get_connection()
     x = c.cursor()
     x.execute("SELECT * FROM loans WHERE return_date IS NULL")
